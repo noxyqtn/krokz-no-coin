@@ -1,0 +1,8 @@
+# Krokz no coin — gitignore
+.config/
+4399.js
+master-loader.js
+poki-sdk.js
+poki-sdk-core.js
+prebid4.12.0.js
+unity.js
