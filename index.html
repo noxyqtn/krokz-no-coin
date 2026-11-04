@@ -9,7 +9,6 @@
         #gameContainer { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
         #loading { color: white; font-family: sans-serif; font-size: 24px; }
     </style>
-    <!-- Usiamo il loader di Unity che hai già nel repository -->
     <script src="UnityLoader.2019.2.js"></script>
 </head>
 <body>
@@ -18,16 +17,27 @@
     </div>
 
     <script>
-        // Avvia il gioco quando la pagina è pronta
         window.onload = function() {
-            // Rimuove la scritta di caricamento
             document.getElementById("loading").style.display = "none";
             
-            // Inizializza Unity. 
-            // Nota: "Build/SanFrancisco.json" è il percorso del file json dentro la tua cartella
             var gameInstance = UnityLoader.instantiate("gameContainer", "Build/SanFrancisco.json", {
+                // 1. Forza il superamento del controllo di compatibilità
+                compatibilityCheck: function() {
+                    return true;
+                },
+                // 2. Fornisci la configurazione completa per evitare l'errore 'cachedDecompressedFileSizes'
+                Module: {
+                    // Questi sono i dati di configurazione che il loader si aspetta
+                    cachedDecompressedFileSizes: {
+                        'SanFrancisco.asm.code.unityweb': 9077143,
+                        'SanFrancisco.asm.framework.unityweb': 86369,
+                        'SanFrancisco.asm.memory.unityweb': 951447,
+                        'SanFrancisco.data.unityweb': 18323917,
+                        'SanFrancisco.wasm.code.unityweb': 7279617,
+                        'SanFrancisco.wasm.framework.unityweb': 90693
+                    }
+                },
                 onProgress: function(instance, progress) {
-                    // Se vuoi, qui puoi aggiungere una barra di caricamento
                     if (progress === 1) {
                         console.log("Gioco caricato con successo!");
                     }
